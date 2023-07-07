@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Proveedores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="Shortcut Icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.jpeg') }}" />
+    <script src="{{ url_for('static', filename='js/sweet-alert.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sweet-alert.css') }}"> <!-- "{{ url_for('static', filename=' ... ') }}" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='/ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-1.11.2.min.js') }}"></script>  <!-- Scroll -->
+    <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>   
+</head>
+    
+<body>
+    <!-- BARRA LATERAL -->
+    <div class="navbar-lateral full-reset">
+        <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+        <div class="full-reset container-menu-movile nav-lateral-scroll">
+            <div></div>
+            <div class="full-reset" style="padding: 20px 0; color:#fff;">
+                <figure>
+                    <img src="{{ url_for('static', filename='/img/logo.jpeg') }}" alt="Logo" class="img-responsive center-box" id="loguito" style="width:55%;">
+                </figure>  
+            </div>
+            <div></div>
+            <div class="full-reset nav-lateral-list-menu">
+                <ul class="list-unstyled">
+                <li><a href="{{ url_for('home') }}"><i><img src="{{ url_for('static', filename='img/home.png') }}"></i>&nbsp;&nbsp; Inicio</a></li>
+                <li><a href="{{ url_for('registrar_repuesto') }}"><i><img src="{{ url_for('static', filename='img/agregaruser.png') }}"></i>&nbsp;&nbsp; Repuesto</a></li><li>
+                <li><a href="{{ url_for('entrada_repuesto') }}"><i><img src="{{ url_for('static', filename='img/entradaR.png') }}"></i>&nbsp;&nbsp; Entrada</a></li><li>
+                <li><a href="{{ url_for('salida_repuesto') }}"><i><img src="{{ url_for('static', filename='img/salidaR.png') }}"></i>&nbsp;&nbsp; Salida</a></li><li>
+                <li><a href="{{ url_for('mostrar_inventario') }}"><i><img src="{{ url_for('static', filename='img/caja.png') }}"></i>&nbsp;&nbsp; Inventario</a></li>
+                <li><a href="{{ url_for('registrar_proveedor') }}"><i><img src="{{ url_for('static', filename='img/edificio.png') }}"></i>&nbsp;&nbsp; Proveedores</a></li>
+                <li><a href="{{ url_for('registrar_responsable') }}"><i><img src="{{ url_for('static', filename='img/responsable.png') }}"></i>&nbsp;&nbsp; Responsables</a></li>
+                <li><a href="{{ url_for('logout') }}"><i><img src="{{ url_for('static', filename='img/exiti.png') }}"></i>&nbsp;&nbsp; Salir</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>  
+    <!-- FIN BARRA LATERAL -->
+
+        <!-- PARTE DE ARRIBA -->
+        <div class="content-page-container full-reset custom-scroll-containers"> 
+            <nav class="navbar-user-top full-reset">
+                <ul class="list-unstyled full-reset">
+                    <figure>
+                        <img src="{{ url_for('static', filename='/img/usuario.png') }}" alt="user-picture" class="img-responsive img-circle center-box">
+                    </figure>
+                    <li style="color:#fff; cursor:default;">
+                        <span class="all-tittles">{{ current_user.fullname }}</span>
+                    </li>
+                    <li class="mobile-menu-button visible-xs" style="float: left !important;">
+                        <i><img src="{{ url_for('static', filename='/img/home.png') }}"></i>
+                    </li>
+                    <li class="desktop-menu-button hidden-xs" style="float: left !important;">
+                        <i><img src="{{ url_for('static', filename='/img/menu.png') }}"></i>
+                    </li>
+                </ul>
+            </nav>
+        <!-- FIN PARTE DE ARRIBA -->    
+
+    <!-- PESTAÑAS -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="all-tittles">Sistema de Control <small>/ Proveedores</small></h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs nav-justified"  style="font-size: 17px; text-align:center;">
+            <li role="presentation" id="pestañas" class="active"><a href="{{ url_for('registrar_proveedor') }}">Proveedores</a></li>
+            <li role="presentation" id="pestaña_mostrar_mostrar"><a href="{{ url_for('mostrar_proveedor') }}">Mostrar Proveedor</a></li>
+        </ul>
+    </div>
+    <!-- FIN PESTAÑAS -->
+
+    <!-- CENTRO DE LA PÁGINA --> 
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            <div class="title-flat-form title-flat-blue">PROVEEDORES</div>
+            <form action="{{ url_for('registro_proveedor') }}" method="post" enctype="multipart/form-data" class="form-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <legend class="datos"><i><img src="{{ url_for('static', filename='img/datos.png') }}"></i> &nbsp; Datos</legend><br>
+                    </div>
+                    
+                    <div id="codigo_proveedormover" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="codigo_proveedor" class="material-control tooltips-general" placeholder="Código del Proveedor" required=""
+                                pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{4,4}" maxlength="4" data-toggle="tooltip" data-placement="top"
+                                title="Solo números, máximo 4 caracteres">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Código del Proveedor</label>
+                        </div>
+                    </div>
+                    
+                    <div id="ruc_registro_proveedor" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="ruc_proveedor" class="material-control tooltips-general" placeholder="RUC del Proveedor" required="" 
+                            pattern="[0-9]{1,11}" maxlength="11" data-toggle="tooltip" data-placement="top" title="Escribe el RUC de la empresa">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>RUC</label>
+                        </div>
+                    </div>
+                        
+                    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+                    <div id="razon_registro_proveedor" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" name="razon_social_proveedor" class="material-control tooltips-general" placeholder="Razón Social del Proveedor" required="" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,; ]{1,100}" maxlength="100" data-toggle="tooltip" data-placement="top" title="Ingresa la razón social del proveedor">                                <span class="bar"></span>
+                            <label>Razón Social del Proveedor</label>
+                        </div>
+                    </div>
+                        
+                    <div id="tel_registro_proveedor" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text"  name="telefono_proveedor" class="material-control tooltips-general" placeholder="Teléfono del proveedor" required="" pattern="[0-9]{1,9}" maxlength="9" data-toggle="tooltip" data-placement="top" title="Solo ingresar números">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Teléfono</label>
+                        </div>
+                    </div>
+
+                    <div id="direc_registro_proveedor" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text"  name="direccion_proveedor" class="material-control tooltips-general" placeholder="Dirección del proveedor" required="" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,; ]{1,100}" maxlength="300" data-toggle="tooltip" data-placement="top" title="Escribe la dirección del proveedor">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Dirección</label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <div class="col-xs-12">
+                        <p class="text-center">  
+                            <div style="margin-left: 460px;" id="guardar">
+                                <button type="submit" class="btn btn-primary"><i></i>Guardar</button>
+                            </div>                       
+                        </p> 
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FIN CENTRO DE PÁGINA -->
+
+    <!-- PIE PÁGINA -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center all-tittles">Ayuda del sistema</h4>
+                </div>
+                <div class="modal-body">
+                    Si tiene algun problema al utilizar el sistema,póngase en contacto con los desarrolladores mediante nuestro correo electrónico Systems@gmail.com                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer full-reset">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h4 class="all-tittles">Acerca de</h4>
+                    <p>La curtiembre CURSPISCO es una empresa ubicada en la región Ica - Pisco, en la Av.Fermin Tanguis, especializada en curtido, adobo de cueros y teñido de pieles.</p>
+                </div>     
+            </div>
+        </div>
+        <div class="footer-copyright full-reset all-tittles">2023 CURPISCO</div>
+    </footer>
+    </div>
+    <!-- FIN PIE PÁGINA -->
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Salida de Repuestos</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link rel="Shortcut Icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.jpeg') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='/ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-1.11.2.min.js') }}"></script>  <!-- Scroll -->
+        <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>   
+    </head>
+<body>
+
+   <!-- BARRA LATERAL -->
+   <div class="navbar-lateral full-reset">
+    <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+    <div class="full-reset container-menu-movile nav-lateral-scroll">
+        <div></div>
+        <div class="full-reset" style="padding: 20px 0; color:#fff;">
+            <figure>
+                <img src="{{ url_for('static', filename='/img/logo.jpeg') }}" alt="Logo" class="img-responsive center-box" id="loguito" style="width:55%;">
+            </figure>
+              
+        </div>
+        <div></div>
+        <div class="full-reset nav-lateral-list-menu">
+            <ul class="list-unstyled">
+                <li><a href="{{ url_for('home') }}"><i><img src="{{ url_for('static', filename='img/home.png') }}"></i>&nbsp;&nbsp; Inicio</a></li>
+                <li><a href="{{ url_for('registrar_repuesto') }}"><i><img src="{{ url_for('static', filename='img/agregaruser.png') }}"></i>&nbsp;&nbsp; Repuesto</a></li><li>
+                <li><a href="{{ url_for('entrada_repuesto') }}"><i><img src="{{ url_for('static', filename='img/entradaR.png') }}"></i>&nbsp;&nbsp; Entrada</a></li><li>
+                <li><a href="{{ url_for('salida_repuesto') }}"><i><img src="{{ url_for('static', filename='img/salidaR.png') }}"></i>&nbsp;&nbsp; Salida</a></li><li>
+                <li><a href="{{ url_for('mostrar_inventario') }}"><i><img src="{{ url_for('static', filename='img/caja.png') }}"></i>&nbsp;&nbsp; Inventario</a></li>
+                <li><a href="{{ url_for('registrar_proveedor') }}"><i><img src="{{ url_for('static', filename='img/edificio.png') }}"></i>&nbsp;&nbsp; Proveedores</a></li>
+                <li><a href="{{ url_for('registrar_responsable') }}"><i><img src="{{ url_for('static', filename='img/responsable.png') }}"></i>&nbsp;&nbsp; Responsables</a></li>
+                <li><a href="{{ url_for('logout') }}"><i><img src="{{ url_for('static', filename='img/exiti.png') }}"></i>&nbsp;&nbsp; Salir</a></li>
+            </ul>
+        </div>
+    </div>
+</div>  
+<!-- FIN BARRA LATERAL -->
+
+     <!-- PARTE DE ARRIBA -->
+     <div class="content-page-container full-reset custom-scroll-containers"> 
+        <nav class="navbar-user-top full-reset">
+            <ul class="list-unstyled full-reset">
+                <figure>
+                    <img src="{{ url_for('static', filename='/img/usuario.png') }}" alt="user-picture" class="img-responsive img-circle center-box">
+                </figure>
+                <li style="color:#fff; cursor:default;">
+                    <span class="all-tittles">{{ current_user.fullname }}</span>
+                </li>
+                <li class="mobile-menu-button visible-xs" style="float: left !important;">
+                    <i><img src="{{ url_for('static', filename='/img/home.png') }}"></i>
+                </li>
+                <li class="desktop-menu-button hidden-xs" style="float: left !important;">
+                    <i><img src="{{ url_for('static', filename='/img/menu.png') }}"></i>
+                </li>
+            </ul>
+        </nav>
+    <!-- FIN PARTE DE ARRIBA -->  
+
+    <!-- PESTAÑAS -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="all-tittles">Sistema de Control <small>/ Salida de Repuestos</small></h1>
+        </div>
+    </div>
+    <!-- FIN PESTAÑAS -->
+
+    <!-- CENTRO DE LA PÁGINA --> 
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            <div class="title-flat-form title-flat-blue">SALIDA DE REPUESTOS</div>
+            <form action="{{ url_for('registro_salida') }}" method="post" enctype="multipart/form-data" class="form-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <legend class="datos"><i><img src="{{ url_for('static', filename='img/datos.png') }}"></i> &nbsp; Datos</legend><br>
+                    </div>
+                    
+                    <div id="codigo_salida_repuestos" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" id="codigo_repuesto" name="codigo_repuesto" class="material-control tooltips-general"
+                                placeholder="Código del Repuesto" required="" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}" maxlength="4"
+                                data-toggle="tooltip" data-placement="top" title="Máximo 4 caracteres">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Código del Repuesto</label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        {% if data.foto_repuesto %}
+                            <img src="{{ data.foto_repuesto }}" alt="Imagen del repuesto" id="foto_repuesto">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='imgRepuestos/default_image.png') }}" alt="Foto de Repuesto" id="foto_repuesto">
+                        {% endif %}
+                    </div>
+
+                    <div id="nombre_salida_repuestos" class="col-xs-12 col-sm-6">
+                        <div class="group-material"> 
+                            <input type="text" id="nombre_repuesto" name="nombre_repuesto" class="material-control tooltips-general"
+                                placeholder="Nombre del Repuesto" title="Escribe el nombre del Repuesto">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nombre del Repuesto</label>
+                        </div>
+                    </div>
+                                        
+                    <div id="descripcion_salida_repuestos" class="col-xs-12 col-sm-6">
+                        <div class="group-material">
+                            <input type="text" id="descripcion_repuesto" name="descripcion_repuesto"
+                                class="material-control tooltips-general" placeholder="Descripcion"
+                                title="Descripción de la salida del Repuesto">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Descripción</label>
+                        </div>
+                    </div>
+
+                    <div id="cantidad_salida_repuestos" class="col-xs-12 col-sm-6">
+                        <div class="group-material">   
+                            <input type="number" id="cantidad_salida_repuesto" name="cantidad_salida_repuesto"
+                                class="material-control tooltips-general" placeholder="Cantidad" required=""
+                                title="Solo ingresar números">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Cantidad</label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <legend><i><img src="{{ url_for('static', filename='img/user.png') }}"></i> &nbsp; Responsable </legend><br>
+                    </div>
+
+                <div id="codigo_salida_responsable" class="col-xs-12 col-sm-6">
+                    <div class="group-material">
+                        <input type="text" id="codigo_responsable" name="codigo_responsable" class="material-control tooltips-general"
+                            placeholder="Código del Responsable" required="" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}" maxlength="4"
+                            data-toggle="tooltip" data-placement="top" title="Máximo 4 caracteres">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Código del Responsable</label>
+                    </div>
+                </div>
+
+                <div id="nombre_salida_responsable" class="col-xs-12 col-sm-6">
+                    <div class="group-material">
+                        <input type="text" id="nombres_responsable" name="nombres_responsable" class="material-control tooltips-general"
+                            placeholder="Nombre del Responsable" title="Escribe el nombre del Responsable">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Nombre del Responsable</label>
+                    </div>
+                </div>
+
+                <div id="apellido_salida_responsable" class="col-xs-12 col-sm-6">
+                    <div class="group-material">
+                        <input type="text" id="apellidos_responsable" name="apellidos_responsable" class="material-control tooltips-general"
+                            placeholder="Apellido del Responsable" title="Escribe el apellido del Responsable">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Apellido del Responsable</label>
+                    </div>
+                </div>
+
+                    <div id="fecha_salida_responsable" class="col-xs-12 col-sm-6">
+                        <div class="group-material">        
+                            <input type="date" id="fecha_salida_repuesto" name="fecha_salida_repuesto" 
+                            class="material-control tooltips-general" placeholder="Fecha" 
+                                pattern="[0-9]{1,6}" maxlength="6" title="Ingresar fecha">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha</label>
+                        </div>
+                    </div>  
+
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <div class="col-xs-12">
+                        <p class="text-center">  
+                            <div id="guardar_salida_repuestos">
+                                <button type="submit" class="btn btn-primary" id="guardar_entrada"><i></i>Guardar</button>
+                            </div>                       
+                        </p> 
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var autocompletar_repuestoURL = "/autocompletar_salida";
+        var autocompletar_responsableURL = "/autocompletar_responsable";
+        var registro_salidaURL = "/registro_salida";
+        var obtener_cantidadesJS = "/obtener_cantidades";
+    </script>
+    <script src="{{ url_for('static', filename='js/jsSalida_Repuestos.js') }}"></script>
+    
+    <!-- PIE PÁGINA -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center all-tittles">Ayuda del sistema</h4>
+                </div>
+                <div class="modal-body">
+                    Si tiene algun problema al utilizar el sistema,póngase en contacto con los desarrolladores mediante nuestro correo electrónico Systems@gmail.com                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <footer class="footer full-reset">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <h4 class="all-tittles">Acerca de</h4>
+                        <p>
+                            La curtiembre CURSPISCO es una empresa ubicada en la región Ica - Pisco, en la Av.Fermin Tanguis, especializada en curtido, adobo de cueros y teñido de pieles.                            </p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="footer-copyright full-reset all-tittles">2023 CURPISCO</div>
+        </footer>
+    </div>
+    <!-- FIN PIE PÁGINA -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+
+        <script>
+            $('#guardar_entrada').on('click', function() {
+                var csrftoken = getCookie('csrftoken'); 
+                var codigo_repuesto = $('#codigo_repuesto').val();
+            
+                fetch(obtener_cantidadesJS, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ codigo_repuesto: codigo_repuesto })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        var cantidad_actual = data.cantidad_actual;
+                        var cantidad_minima_repuesto = data.cantidad_minima_repuesto;
+                        var cantidadSalidaRepuesto = $('#cantidad_salida_repuesto').val();
+            
+                        if (cantidadSalidaRepuesto > cantidad_actual) {
+                            alert("ERROR: La cantidad solicitada es mayor que la cantidad disponible en stock.");
+                        } else if (cantidad_actual - cantidadSalidaRepuesto <= cantidad_minima_repuesto) {
+                            alert("ADVERTENCIA: La cantidad de repuesto es igual o menor que la cantidad mínima.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener las cantidades:', error);
+                    });
+            });
+        </script>    
+</body>
+</html>

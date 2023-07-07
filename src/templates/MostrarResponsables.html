@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Responsable</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="Shortcut Icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.jpeg') }}" />
+    <script src="{{ url_for('static', filename='js/sweet-alert.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sweet-alert.css') }}"> <!-- "{{ url_for('static', filename=' ... ') }}" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='/ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-1.11.2.min.js') }}"></script>  <!-- Scroll -->
+    <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>   
+</head>
+<body>
+<!-- BARRA LATERAL -->
+<div class="navbar-lateral full-reset">
+    <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+    <div class="full-reset container-menu-movile nav-lateral-scroll">    
+        <div>
+            <figure>
+                <img src="{{ url_for('static', filename='/img/logo.jpeg') }}" alt="Logo" class="img-responsive center-box" id="loguito" style="width:55%;">
+            </figure>
+        </div>
+        <div></div>
+        <div class="full-reset nav-lateral-list-menu">
+            <ul class="list-unstyled">
+                <li><a href="{{ url_for('home') }}"><i><img src="{{ url_for('static', filename='img/home.png') }}"></i>&nbsp;&nbsp; Inicio</a></li>
+                <li><a href="{{ url_for('registrar_repuesto') }}"><i><img src="{{ url_for('static', filename='img/agregaruser.png') }}"></i>&nbsp;&nbsp; Repuesto</a></li><li>
+                <li><a href="{{ url_for('entrada_repuesto') }}"><i><img src="{{ url_for('static', filename='img/entradaR.png') }}"></i>&nbsp;&nbsp; Entrada</a></li><li>
+                <li><a href="{{ url_for('salida_repuesto') }}"><i><img src="{{ url_for('static', filename='img/salidaR.png') }}"></i>&nbsp;&nbsp; Salida</a></li><li>
+                <li><a href="{{ url_for('mostrar_inventario') }}"><i><img src="{{ url_for('static', filename='img/caja.png') }}"></i>&nbsp;&nbsp; Inventario</a></li>
+                <li><a href="{{ url_for('registrar_proveedor') }}"><i><img src="{{ url_for('static', filename='img/edificio.png') }}"></i>&nbsp;&nbsp; Proveedores</a></li>
+                <li><a href="{{ url_for('registrar_responsable') }}"><i><img src="{{ url_for('static', filename='img/responsable.png') }}"></i>&nbsp;&nbsp; Responsables</a></li>
+                <li><a href="{{ url_for('logout') }}"><i><img src="{{ url_for('static', filename='img/exiti.png') }}"></i>&nbsp;&nbsp; Salir</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- FIN BARRA LATERAL -->
+        <!-- PARTE DE ARRIBA -->
+        <div class="content-page-container full-reset custom-scroll-containers"> 
+            <nav class="navbar-user-top full-reset">
+                <ul class="list-unstyled full-reset">
+                    <figure>
+                        <img src="{{ url_for('static', filename='/img/usuario.png') }}" alt="user-picture" class="img-responsive img-circle center-box">
+                    </figure>
+                    <li style="color:#fff; cursor:default;">
+                        <span class="all-tittles">{{ current_user.fullname }}</span>
+                    </li>
+                    <li class="mobile-menu-button visible-xs" style="float: left !important;">
+                        <i><img src="{{ url_for('static', filename='/img/home.png') }}"></i>
+                    </li>
+                    <li class="desktop-menu-button hidden-xs" style="float: left !important;">
+                        <i><img src="{{ url_for('static', filename='/img/menu.png') }}"></i>
+                    </li>
+                </ul>
+            </nav>
+        <!-- FIN PARTE DE ARRIBA -->  
+
+    <!-- PESTAÑAS -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="all-tittles">Sistema de Control <small>/ Mostrar Responsable</small></h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+            <li role="presentation" id="pestañas" ><a href="{{ url_for('registrar_responsable') }}">Responsable</a></li>
+            <li role="presentation" id="pestaña_mostrar_mostrar" class="active"><a href="{{ url_for('mostrar_responsable') }}">Mostrar Responsable</a></li>
+        </ul>
+    </div>
+    <!-- FIN PESTAÑAS -->
+
+<!-- CENTRO DE LA PÁGINA --> 
+
+        <!-- FORMULARIO--> 
+        <div class="container-fluid">
+            <div class="container-flat-form">
+                <div class="title-flat-form title-flat-blue">MOSTRAR RESPONSABLE</div>
+                <form action="{{ url_for('buscar_responsable') }}" method="post" class="form-padding">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <legend class="datos"><i><img src="{{ url_for('static', filename='img/user.png') }}"></i> &nbsp; Datos </legend><br>
+                        </div>
+
+                        <!-- <div class="centrar"> 
+                            <div class="entrada_cont">-->
+
+                                <div id="apellidos_responsables" name="razon_social_proveedorr" class="col-xs-12 col-sm-6">
+                                    <div class="group-material">
+                                        <input type="text" id="apellidos_responsable" name="apellidos_responsable"
+                                            class="material-control tooltips-general" placeholder="Apellidos del Responsable"
+                                            title="Apellidos del Responsable">
+                                        <span  class="highlight"></span>
+                                        <span  class="bar"></span>
+                                        <label style="margin-top: -10px; " >Apellidos del Responsable</label>
+                                    </div>
+                                </div>
+                                <button style="height: 40px;width: 50px;border-radius: 10px;margin-top: -100px ;margin-left: 780px ;background-color: #d74a4a; border: solid 1px #d74a4a;" id="limpiarFiltro"> <img src="{{ url_for('static', filename='img/limpiar.png') }}"></button>
+                        
+                                <div class="main-container">
+                                    <table id="tabla_responsable" class="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Nombres</th>
+                                                <th>Apellidos</th>
+                                                <th>Teléfono</th>
+                                                <th>Dirección</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for responsable in responsables %}
+                                                <tr>
+                                                    <td>{{ responsable.1 }}</td>
+                                                    <td>{{ responsable.2 }}</td>
+                                                    <td>{{ responsable.3 }}</td>
+                                                    <td>{{ responsable.4 }}</td>
+                                                    <td>{{ responsable.5 }}</td>
+                                                    <td>
+                                                        <a href="/edit_responsable/{{responsable.0}}" id="btn-editar" class="btn btn-secondary"><img src="{{ url_for('static', filename='img/lapiz.png') }}"></a>
+                                                        <a href="/delete_responsable/{{responsable.0}}" class="btn btn-danger btn-delete"> <img src="{{ url_for('static', filename='img/basura.png') }}"></a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                    <div class="botoncitos">
+                                        <div class="col-xs-12">
+                                            <p class="text-center">
+                                                <a id="btn-generar"><img src="{{ url_for('static', filename='img/pdf.png') }}"> <input class="btn btn-generar-pdf" style="color: white;" type="submit"  value="PDF" onclick="generarPDF(event)" ></a>
+                                                <a id="btn-generar"><img src="{{ url_for('static', filename='img/excel.png') }}"><input class="btn btn-generar-excel" type="button" value="EXCEL" style="color: white;" onclick="descargarExcel()"></a>
+                                            </p> 
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                    <script>
+                                        var buscar_responsableURL = "/buscar_responsable";
+                                        var limpiar_filtrorURL = "/limpiar_filtroR";
+                                        var generar_excelrURL = "/generar_excelR";
+                                    </script>
+
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>                
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.17/jspdf.plugin.autotable.min.js"></script>
+                                    <script src="{{ url_for('static', filename='js/responsableGenerarPDF.js') }}"></script>  
+
+                                </div>
+                            
+                        </div>
+                        
+                    </div>
+                        
+                </div>
+                
+            </form>
+            
+            </div>
+            
+        </div>
+        <!-- FIN FORMULARIO-->
+
+        <!-- PIE PÁGINA -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center all-tittles">Ayuda del sistema</h4>
+                    </div>
+                    <div class="modal-body">
+                        Si tiene algun problema al utilizar el sistema,póngase en contacto con los desarrolladores mediante nuestro correo electrónico Systems@gmail.com                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <footer class="footer full-reset">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <h4 class="all-tittles">Acerca de</h4>
+                            <p>
+                                La curtiembre CURSPISCO es una empresa ubicada en la región Ica - Pisco, en la Av.Fermin Tanguis, especializada en curtido, adobo de cueros y teñido de pieles.                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="footer-copyright full-reset all-tittles">2023 CURPISCO</div>
+            </footer>
+        </div>
+        <!-- FIN PIE PÁGINA -->
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+        
+        <script>
+            $(document).ready(function() {
+                var csrftoken = getCookie('csrftoken'); 
+                $('#apellidos_responsable').on('keydown', function(event) {
+                    if (event.keyCode === 13) { 
+                        event.preventDefault();
+        
+                        var apellidos_responsable = $(this).val();
+        
+                        $.ajax({
+                            url: buscar_responsableURL, 
+                            method: 'POST',
+                            data: { apellidos_responsable : apellidos_responsable, 
+                                csrfmiddlewaretoken: csrftoken 
+                            },
+                            success: function(response) {
+                                var responsable = response.responsable;
+        
+                                if (responsable.length === 0) {
+                                    $('#tabla_responsable tbody').html('');  // Deja vacío el contenido del tbody
+                                } else {
+                                    var tableRow = '';
+                                    for (var i = 0; i < responsable.length; i++) {
+                                        tableRow += `
+                                            <tr>
+                                                <td>${responsable[i][1]}</td>
+                                                <td>${responsable[i][2]}</td>
+                                                <td>${responsable[i][3]}</td>
+                                                <td>${responsable[i][4]}</td>
+                                                <td>${responsable[i][5]}</td>
+                                                <td>
+                                                    <a href="/edit_responsable/${responsable[i][0]}" class="btn btn-secondary">Editar</a>
+                                                    <a href="/delete_responsable/${responsable[i][0]}" class="btn btn-danger btn-delete">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }
+                                    $('#tabla_responsable tbody').html(tableRow);
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+        
+<script>
+    $(document).ready(function() {
+        $('#limpiarFiltro').on('click', function(event) {
+            event.preventDefault();
+
+            $('#apellidos_responsable').val('');
+
+            $.ajax({
+                url: limpiar_filtrorURL,
+                method: 'GET',
+                success: function(response) {
+                    var responsables = response.responsable;
+                    var tableRows = '';
+
+                    for (var i = 0; i < responsables.length; i++) {
+                        var responsable = responsables[i];
+                        var row = `
+                            <tr>
+                                <td>${responsable[1]}</td>
+                                <td>${responsable[2]}</td>
+                                <td>${responsable[3]}</td>
+                                <td>${responsable[4]}</td>
+                                <td>${responsable[5]}</td>
+                                <td>
+                                    <a href="/edit_responsable/${responsable[0]}" class="btn btn-secondary">Editar</a>
+                                    <a href="/delete_responsable/${responsable[0]}" class="btn btn-danger btn-delete">Eliminar</a>
+                                </td>
+                            </tr>
+                        `;
+                        tableRows += row;
+                    }
+
+                    $('#tabla_responsable tbody').html(tableRows);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+        <script>
+            const btnDelete = document.getElementsByClassName('btn-delete');
+            if (btnDelete) {
+            const btnArray = Array.from(btnDelete);
+            btnArray.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                if (!confirm('¿Estás seguro de querer eliminarlo?')) {
+                    e.preventDefault();
+                }
+                });
+            });
+            }
+        </script>
+
+        <script>
+            function descargarExcel() {
+            var csrftoken = getCookie('csrftoken'); 
+
+            $.ajax({
+                url: generar_excelrURL,
+                type: 'POST',
+                xhrFields: {
+                responseType: 'blob' 
+                },
+                data: { 
+                    csrfmiddlewaretoken: csrftoken 
+                },
+                success: function(data) {
+                var url = window.URL.createObjectURL(data);
+                
+                var link = document.createElement('a');
+                link.href = url;
+                const currentDate = new Date();
+                const year = currentDate.getFullYear();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+
+                const nombreArchivo = "lista-responsables";
+
+                const nombreArchivoConFecha = `${nombreArchivo}_${year}-${month}-${day}.xlsx`;
+
+                link.download = nombreArchivoConFecha; 
+                link.click();
+                
+                window.URL.revokeObjectURL(url);
+                }
+            });
+            }
+        </script>
+</body>
+</html>
